@@ -1,0 +1,307 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Arial-ItalicMT;\f2\fmodern\fcharset0 CourierNewPSMT;
+}
+{\colortbl;\red255\green255\blue255;\red102\green102\blue102;\red191\green191\blue191;}
+{\*\expandedcolortbl;;\csgenericrgb\c40000\c40000\c40000;\csgray\c79525;}
+\paperw12240\paperh15840\vieww12240\viewh15320\viewkind1
+\deftab720
+\pard\pardeftab720\ri0\sl276\slmult1\sa60\partightenfactor0
+
+\f0\fs52 \cf0 Aura OEM Configuration\
+\pard\pardeftab720\ri0\sl276\slmult1\sa320\partightenfactor0
+
+\fs30 \cf2 \uc0\u8232 What is Aura?\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 Aura is Ayla\'92s IoT engineer focused mobile application. Aura provides basic reference code to create a new user account, connect a new device to that account (wifi setup), register that device to the account, and configure properties in the cloud or in LAN Mode (WiFi peer networks). These are core Ayla platform features that can be used as a reference during early stage development.\
+\
+\pard\pardeftab720\ri0\sl276\slmult1\sa320\partightenfactor0
+
+\fs30 \cf2 Do I need OEM Config?\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 Aura is pre-configured to connect to the Ayla development service in the USA using the Aura app ID and app secret, and to manage properties for a few devices known to Ayla (currently the Ayla EVB (Evaluation Board or Dev Kit), the Ayla Generic Gateway (Raspberry Pi edition) and a couple of Smart Plugs).\
+\
+IoT software engineers can easily change these values and rebuild the Aura application, so they may not need or want to use OEM Config, other than for convenience. \
+\
+IoT HW/FW engineers also want to connect to different services or have built-in support for their own devices. However, many times they lack the time or skills to rebuild Aura. Additionally, early stage project typically focus on HW/FW, so mobile developers may not be available.  To enable HW/FW engineers, Aura supports an external configuration file that can be installed via an email attachment or URL to allow Aura to be configured for any system. Customers can create an Aura configuration file containing the details required to connect to their own OEM account (app ID / secret) and manage their own devices. \
+\
+\pard\pardeftab720\ri0\sl276\slmult1\sa320\partightenfactor0
+
+\fs30 \cf2 How do I use OEM configuration files?\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 The Aura configuration file is recognized by its extension, \'93.auraconfig\'94. The mobile applications register themselves as handlers for these files, and will import or update the configuration into Aura, and set it as the default when the file is opened on a mobile device with Aura installed.\
+\
+Once the configuration has been installed, it will appear in the \'93Developer Options\'94 section of the application in a drop-down list, along with the pre-defined configurations that ship with Aura. An installed configuration may be chosen by selecting the appropriate item from the drop-down list in the developer options screen.\
+\
+If you are unsure of the values to use, check with the project lead responsible for \
+creating the Ayla platform template on the OEM Dashboard. The documentation in the iOS_AylaSDK and/or Android_AylaSDK github repos are also useful for better understanding these fields.\
+\
+\pard\pardeftab720\ri0\sl276\slmult1\sa320\partightenfactor0
+
+\fs30 \cf2 How do I override the base URLs of the cloud services?\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 A cloud service base URL can be uniquely identified by its cloud provider, service type, service location, and service name. For example, the URL  of the Ayla Device Service (ADS) in US development enviroment can be specified as [cloudProvider = \'93AWS\'94, serviceType=\'93Development\'94, serviceLocation = \'93USA\'94, cloudService=\'93Device\'94]. Ayla SDK has a sets of built-in cloud service URLs that support different providers and service types and locations. For those who wants to override the defaults and use their own service URLs,  you should:\
+   1)  configure the 
+\f1\i cloudProvider
+\f0\i0  field as VPC (Virtual Private Cloud).\
+   2)  populate the 
+\f1\i serviceOverrides
+\f0\i0  field with the valid URLs provided by Ayla customer support for your Ayla Virtual Private IoT Cloud.  Note that, this can be equivalently achieved by programmatically making calls to ServiceUrls.setServiceURLOverride(CloudService service, String baseURL).\
+\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs30 \cf2 Decoding the .auraconfig file\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 \
+The .auraconfig file is a JSON file containing the following fields:\
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 name\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Name of the configuration, required, visible to the user\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 appId\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Application ID to use to sign in to the service\
+Default: N/A - Created on the Dashboard by the project lead\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 appSecret\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Application secret to use to sign in to the service\
+Default: N/A - Created on the Dashboard by the project lead\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 cloudProvider\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Cloud service provider. One of: AWS, GCP and VPC.\
+Default: AWS\
+Note: Service URLs specified in the serviceOverrides field will override the default ones uniquely identified by [cloudProvider, serviceType, serviceLocation, cloudService].\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 serviceType\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 One of: Field, Development\
+Default: Development\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 serviceLocation\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 One of: USA, China, Europe\
+Default: USA\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 allowDSS\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Allows or disallows the use of the Device Subscription Service, boolean value. This new feature must also be enabled on the cloud. Consult with the project team leader.\
+Default: false\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 allowOfflineUse\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Allows or disallows the application from signing in while the cloud service is unavailable. Use cautiously, as the app is now responsible for user authentication!\
+Default: false\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 allowLANConnectionToSharedDevices\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Allows or disallows devices that are shared with the local account to be accessible in LAN mode.\
+Default: false.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 defaultNetworkTimeoutMs\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Default timeout for network connections in milliseconds.\
+Default: 5000.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 disableMetricsService\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Enable or disable metrics of the app.\
+Default: false.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 ssidRegex\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 The regex of the device SSID to be setup.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 managedDevices\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Array of devices the application manages. This includes a mapping of DSN, model or OEM model to a set of property names that are to be managed for matching devices.\
+Default: N/A\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 dssSubscriptionTypeList\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Mobile DSS subscription types. Supported subscription types are datapoint, datapointack and connectivity.\
+Default: datapoint\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 serviceOverrides\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Mappings of cloud service names to URLs. Only case-sensitive cloud service names defined in CloudService can be recognized. In addition, only valid service URLs will be overridden.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2940\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5260\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 autoFetchMessageContent\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Set exclusively for message property to allow auto-fetching message content from message datapoint Id if true.\
+Default: false\cell \lastrow\row
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+\cf0 \
+The array of managed devices is an array of objects with one or more of the following fields set:\
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw10\brdrcf3 \trbrdrl\brdrs\brdrw10\brdrcf3 \trbrdrr\brdrs\brdrw10\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth4428\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4320\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 dsn\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 DSN of a specific device to manage\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw10\brdrcf3 \trbrdrr\brdrs\brdrw10\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth4428\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4320\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 oemModel\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 OEM model to match against a device\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw10\brdrcf3 \trbrdrr\brdrs\brdrw10\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth4428\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4320\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 model\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Model to match against a device\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw10\brdrcf3 \trbrdrb\brdrs\brdrw10\brdrcf3 \trbrdrr\brdrs\brdrw10\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth4428\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4320\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadl100 \clpadr100 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 managedProperties[]\cell 
+\pard\intbl\itap1\pardeftab720\ri0\partightenfactor0
+\cf0 Array of property names that should be managed for matching devices. This is typically a small subset of all the properties from the template. Only include properties  that are required by the mobile app.\cell \lastrow\row
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+\cf0 \
+Aura will check each device against the active configuration\'92s managed device array and attempt to match them. If all defined fields from a configuration match a device, then that set of property names is returned to the Mobile SDK as the set of managed properties for that device.\
+\
+A sample Aura configuration file is included below:\
+\
+\pard\pardeftab720\ri0\sl276\slmult1\partightenfactor0
+
+\f2\fs20 \cf0 \{\
+    "name": "Complete List of Aura OEM configurations",\
+    "appId": "aura_0dfc7900-id",\
+    "appSecret": "aura_0dfc7900-eUo-3Se7R25Z_QLeEiXqYkQDUNA",\
+    "cloudProvider": "AWS",\
+    "serviceLocation": "USA",\
+    "serviceType": "Development",   \
+    "ssidRegex": "Ayla-([0-9a-zA-Z]\{12\}",\
+    "allowDSS": true,\
+    "allowOfflineUse": false,\
+    "allowLANConnectionToSharedDevices": false,\
+    \'93autoFetchMessageContent\'94: false,\
+    "defaultNetworkTimeoutMs": 5000,\
+    "disableMetricsService": false,\
+    "disableUncaughtExceptionHandler": false,\
+    \
+    "managedDevices": [\
+        \{\
+            // Ayla EVB\
+            "dsn": "AC000W000340319",\
+            "model": "AY001MTC1",\
+            "oemModel": "AylaShield",\
+            "managedProperties": ["Blue_button", "Blue_LED", "Green_LED", "Red_LED"]\
+        \},\
+        \{\
+            // Ayla EVB\
+            "dsn": "AC000W000101349",\
+            "model": "AY001MUS1",\
+            "oemModel": "ledevb",\
+            "managedProperties": ["Blue_button", "Blue_LED", "Green_LED", "Red_LED"]\
+        \},\
+        \{\
+            // Generic Gateway\
+            "model" : "AY001MRT1",\
+            "oemModel" : "generic",\
+            "managedProperties" : ["num_nodes", "log"]\
+        \},\
+        \{\
+            // Smart plug\
+            "oemModel" : "smartplug1",\
+            "managedProperties" : ["outlet1"]\
+        \}\
+    ],\
+\
+   "dssSubscriptionTypeList": [\
+         "connectivity",\
+         "datapoint",\
+         "datapointack"\
+    ],\
+\
+   "serviceOverrides": \{\
+        "Device": "https://ads-dev.aylanetworks.com/",\
+        "User": "https://user-dev.aylanetworks.com/",\
+        "Datastream": "https://mstream-dev.aylanetworks.com/",\
+        "mdssSubscription": "https://mdss-dev.aylanetworks.com/",\
+        "Log": "https://log-dev.aylanetworks.com/",\
+        "Metrics": "https://metric-dev.aylanetworks.com/",\
+        "Rules": "https://rulesservice-dev.aylanetworks.com/"\
+   \}\
+\}}
